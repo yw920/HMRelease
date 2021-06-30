@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "60GBLS7m9PVZGU17dGxTZp"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "xiaoguo02",
+      "rect": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        1920,
+        1080
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

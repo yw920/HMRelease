@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "d2j0MLZg9KCKya8aeVyehk"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "chuizi05_2",
+      "rect": [
+        0,
+        0,
+        142,
+        161
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        142,
+        161
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

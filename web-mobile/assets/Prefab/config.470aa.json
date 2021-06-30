@@ -1,0 +1,145 @@
+{
+    "paths": {
+        "aezxOuqgVMpbZZroB6HYsW": [
+            "Coin",
+            "cc.Prefab"
+        ],
+        "251ZXr8GxHlpxhlR9kLcH+": [
+            "Hit",
+            "cc.Prefab"
+        ],
+        "a2xxbF5RtC4Y0O9wMZnJLk": [
+            "Lighting",
+            "cc.Prefab"
+        ],
+        "7d/bBKjtZLgo+I0oHV6x51": [
+            "Mouse",
+            "cc.Prefab"
+        ],
+        "4dV2yg3H5HgJ5tFXxSTjFK": [
+            "NegCoin",
+            "cc.Prefab"
+        ],
+        "588ON5zkhPZrmeIPi7dg9A": [
+            "rankItem",
+            "cc.Prefab"
+        ],
+        "34BkCTbehETYdi69JjXv2j": [
+            "seletItem",
+            "cc.Prefab"
+        ]
+    },
+    "uuids": [
+        "00asv71utATKG9QCFo4Fok",
+        "18APGUbk9Ps4n1cz5oqjYl",
+        "251ZXr8GxHlpxhlR9kLcH+",
+        "34BkCTbehETYdi69JjXv2j",
+        "3aEM+3gkRLibPkBHBtBlfy",
+        "3c+nh7qfdHR4a+e4AViGJz",
+        "3dM0gckkFG3pShww/UUZMZ",
+        "4bPppbWM1OaaQeYTWRZpqg",
+        "4dV2yg3H5HgJ5tFXxSTjFK",
+        "4effKW4wpDr6X3dzWqVNlt",
+        "588ON5zkhPZrmeIPi7dg9A",
+        "5e0QYqekpA9JjOhLtcEry0",
+        "5e+BNaAPhKG6qo6Ijc6Obw",
+        "6ev3FZYLJA6qGCTpAVMHNW",
+        "70WAwpLcFN+53l2O6xToSu",
+        "7d/bBKjtZLgo+I0oHV6x51",
+        "94hxWFactDPbZn9gYFi6o7",
+        "97+KfvK8tE+4bD/ZfVBcV9",
+        "9brIa3l/FFeK7DMu1GQWbj",
+        "a2xxbF5RtC4Y0O9wMZnJLk",
+        "aezxOuqgVMpbZZroB6HYsW",
+        "beCPkG8BhOhYeFZpuKszoW",
+        "df3rgkIo1DLadpd37Cp3bh",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "ee/p20dOJDXK1rnpCTtlu6",
+        "efIgdjMrpC6JQtENn2iA9h"
+    ],
+    "scenes": {},
+    "redirect": [
+        "3c+nh7qfdHR4a+e4AViGJz",
+        0,
+        "3dM0gckkFG3pShww/UUZMZ",
+        0,
+        "5e+BNaAPhKG6qo6Ijc6Obw",
+        0,
+        "70WAwpLcFN+53l2O6xToSu",
+        0,
+        "7d/bBKjtZLgo+I0oHV6x51",
+        0,
+        "df3rgkIo1DLadpd37Cp3bh",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "main",
+        "internal"
+    ],
+    "packs": {
+        "05b2ff6fc": [
+            "18APGUbk9Ps4n1cz5oqjYl",
+            "3aEM+3gkRLibPkBHBtBlfy",
+            "4bPppbWM1OaaQeYTWRZpqg",
+            "4effKW4wpDr6X3dzWqVNlt",
+            "a2xxbF5RtC4Y0O9wMZnJLk",
+            "ee/p20dOJDXK1rnpCTtlu6"
+        ],
+        "070501477": [
+            "5e0QYqekpA9JjOhLtcEry0",
+            "aezxOuqgVMpbZZroB6HYsW"
+        ],
+        "087890f1e": [
+            "00asv71utATKG9QCFo4Fok",
+            "588ON5zkhPZrmeIPi7dg9A"
+        ],
+        "0a018a3fa": [
+            "6ev3FZYLJA6qGCTpAVMHNW",
+            "94hxWFactDPbZn9gYFi6o7",
+            "97+KfvK8tE+4bD/ZfVBcV9",
+            "9brIa3l/FFeK7DMu1GQWbj",
+            "beCPkG8BhOhYeFZpuKszoW",
+            "efIgdjMrpC6JQtENn2iA9h"
+        ]
+    },
+    "name": "Prefab",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false,
+    "versions": {
+        "import": [
+            "05b2ff6fc",
+            "65a78",
+            "070501477",
+            "1e292",
+            "087890f1e",
+            "1a9bc",
+            "0a018a3fa",
+            "6e003",
+            "251ZXr8GxHlpxhlR9kLcH+",
+            "648f0",
+            "34BkCTbehETYdi69JjXv2j",
+            "a1121",
+            "4dV2yg3H5HgJ5tFXxSTjFK",
+            "3cd2a"
+        ],
+        "native": [
+            "6ev3FZYLJA6qGCTpAVMHNW",
+            "a39c9",
+            "94hxWFactDPbZn9gYFi6o7",
+            "98e11",
+            "97+KfvK8tE+4bD/ZfVBcV9",
+            "2191e",
+            "9brIa3l/FFeK7DMu1GQWbj",
+            "42fad",
+            "beCPkG8BhOhYeFZpuKszoW",
+            "c3922",
+            "efIgdjMrpC6JQtENn2iA9h",
+            "4d442"
+        ]
+    }
+}
