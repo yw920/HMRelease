@@ -1224,7 +1224,7 @@ window.__require = function e(t, n, r) {
           if (value.generateId == handle) {
             set.delete(value);
             true;
-            cc.log("delay excute id:" + value.generateId + " delay:" + value.delayTime + " interval:" + value.interval);
+            cc.log("update  UnScheduleed id:" + value.generateId + " delay:" + value.delayTime + " interval:" + value.interval);
             return;
           }
         });
@@ -1405,11 +1405,19 @@ window.__require = function e(t, n, r) {
           });
           if (0 == GameModel_1.default.model.cachedMoleList.length) {
             this.stopLoop();
+            var curHandler_1 = this._loopHandler;
             Functions_1.mySetTimeout(function() {
-              if (GameModel_1.default.model.curStage == GameModel_1.default.model.sGetMissionInfo.resourceList.length - 1) _this.EndGame(); else {
+              if (_this._loopHandler != curHandler_1) return;
+              if (GameModel_1.default.model.curStage == GameModel_1.default.model.sGetMissionInfo.resourceList.length - 1) {
+                _this.EndGame();
+                true;
+                cc.log("end game by no more mouse");
+              } else {
                 GameModel_1.default.mutations.SetUpNewModelList(GameModel_1.default.model.sGetMissionInfo.resourceList[GameModel_1.default.model.curStage + 1].moleList);
                 GameModel_1.default.mutations.SetCurStage(GameModel_1.default.model.curStage + 1);
                 _this.saying();
+                true;
+                cc.log("set saying by no more mouse");
               }
             }, 2e3);
             return;
