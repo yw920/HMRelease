@@ -1271,6 +1271,11 @@ window.__require = function e(t, n, r) {
       function GameAction() {}
       GameAction.stopLoop = function() {
         -1 != this._loopHandler && Functions_1.myClearTimeout(this._loopHandler);
+        for (var _i = 0, _a = this._timmers; _i < _a.length; _i++) {
+          var time = _a[_i];
+          Functions_1.myClearTimeout(time);
+        }
+        this._timmers = [];
         this._loopHandler = -1;
       };
       GameAction.StartHitting = function() {
@@ -1404,10 +1409,8 @@ window.__require = function e(t, n, r) {
             return mouse.state == GameModel_1.MouseState.None;
           });
           if (0 == GameModel_1.default.model.cachedMoleList.length) {
-            var curHandler_1 = this._loopHandler;
             this.stopLoop();
-            Functions_1.mySetTimeout(function() {
-              if (_this._loopHandler != curHandler_1) return;
+            this._timmers.push(Functions_1.mySetTimeout(function() {
               if (GameModel_1.default.model.curStage == GameModel_1.default.model.sGetMissionInfo.resourceList.length - 1) {
                 _this.EndGame();
                 true;
@@ -1419,7 +1422,7 @@ window.__require = function e(t, n, r) {
                 true;
                 cc.log("set saying by no more mouse");
               }
-            }, 2e3);
+            }, 2e3));
             return;
           }
           var maxNumbers = GameModel_1.default.model.sGetMissionInfo.levelInfo.maxMoleNumber;
@@ -1535,6 +1538,7 @@ window.__require = function e(t, n, r) {
         null === (_b = GlobalEvent_1.GlobalEvent.SetSelect) || void 0 === _b ? void 0 : _b.call(GlobalEvent_1.GlobalEvent, false);
       };
       GameAction._loopHandler = -1;
+      GameAction._timmers = [];
       GameAction.elipseTime = 0;
       return GameAction;
     }();
@@ -3698,7 +3702,6 @@ window.__require = function e(t, n, r) {
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
-              appInfo = GameApp.startGame();
               appInfo || (appInfo = {
                 autoStart: 1,
                 missionNum: 2,
