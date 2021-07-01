@@ -19,7 +19,7 @@ window._CCSettings = {
     bundleVers: {
         internal: "d40d2",
         Prefab: "470aa",
-        Texture: "a3a35",
-        main: "1239a"
+        Texture: "f8f65",
+        main: "b2176"
     }
 };
