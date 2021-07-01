@@ -1188,18 +1188,15 @@ window.__require = function e(t, n, r) {
             if (item.elipseTime > item.delayTime) {
               set.delete(item);
               null === (_a = item.callback) || void 0 === _a ? void 0 : _a.call(item);
+              true;
               cc.log("delay excute id:" + item.generateId + " delay:" + item.delayTime);
             }
           } else if (void 0 != item.interval) {
             if (item.elipseTime >= item.interval) {
               item.elipseTime = item.elipseTime - item.interval;
               null === (_b = item.callback) || void 0 === _b ? void 0 : _b.call(item);
-              cc.log("interval excute id:" + item.generateId + " interval:" + item.interval);
             }
-          } else {
-            null === (_c = item.callback) || void 0 === _c ? void 0 : _c.call(item);
-            cc.log("update excute id:" + item.generateId);
-          }
+          } else null === (_c = item.callback) || void 0 === _c ? void 0 : _c.call(item);
         });
       };
       Functions.prototype.Delay = function(time, func) {
@@ -1226,6 +1223,8 @@ window.__require = function e(t, n, r) {
         this.updateItems.forEach(function(value, key, set) {
           if (value.generateId == handle) {
             set.delete(value);
+            true;
+            cc.log("delay excute id:" + value.generateId + " delay:" + value.delayTime + " interval:" + value.interval);
             return;
           }
         });
@@ -1700,6 +1699,8 @@ window.__require = function e(t, n, r) {
         SimpleReactive_1.Emit(model, "name", name);
       },
       SetState: function(state) {
+        true;
+        cc.log("SetState" + state);
         SimpleReactive_1.Emit(model, "state", state);
       },
       SetMouseStateByMouse: function(mouse, state) {
