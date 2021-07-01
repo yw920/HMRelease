@@ -1404,8 +1404,8 @@ window.__require = function e(t, n, r) {
             return mouse.state == GameModel_1.MouseState.None;
           });
           if (0 == GameModel_1.default.model.cachedMoleList.length) {
-            this.stopLoop();
             var curHandler_1 = this._loopHandler;
+            this.stopLoop();
             Functions_1.mySetTimeout(function() {
               if (_this._loopHandler != curHandler_1) return;
               if (GameModel_1.default.model.curStage == GameModel_1.default.model.sGetMissionInfo.resourceList.length - 1) {
@@ -3698,7 +3698,6 @@ window.__require = function e(t, n, r) {
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
-              appInfo = GameApp.startGame();
               appInfo || (appInfo = {
                 autoStart: 1,
                 missionNum: 2,
