@@ -3698,6 +3698,7 @@ window.__require = function e(t, n, r) {
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
+              appInfo = GameApp.startGame();
               appInfo || (appInfo = {
                 autoStart: 1,
                 missionNum: 2,
