@@ -969,6 +969,7 @@ window.__require = function e(t, n, r) {
           go_1.name = "GameObjectPool";
           go_1.parent = cc.director.getScene();
           GameObjectPool_1.GameObjectPool.Init(go_1);
+          for (var i = 0; i < 10; i++) GameObjectPool_1.GameObjectPool.Preload("Prefab", "rankItem");
         }
         Functions_1.mySetTimeout(function() {
           _this.BindViewModel();
@@ -1372,12 +1373,13 @@ window.__require = function e(t, n, r) {
         Network_1.Network.RpcSendOnly(msg);
       };
       GameAction.sendScoreChange = function() {
+        var _a;
         var msg = new Msgs_1.CPlayerScoreChange();
         msg.roomId = GameModel_1.default.model.appInfo.roomId;
         msg.gameStatus = GameModel_1.default.model.state == GameModel_1.GameState.HITTING ? Msgs_1.SGameState.ING : Msgs_1.SGameState.ENDING;
         msg.missionNum = GameModel_1.default.model.appInfo.missionNum;
         msg.score = GameModel_1.default.model.score;
-        msg.totalScore = GameModel_1.default.model.sGetPlayerInfo.totalScore;
+        msg.totalScore = (null === (_a = GameModel_1.default.model.sGetPlayerInfo) || void 0 === _a ? void 0 : _a.totalScore) + GameModel_1.default.model.score;
         msg.userId = GameModel_1.default.model.appInfo.userId;
         Network_1.Network.RpcSendOnly(msg);
       };
@@ -1878,8 +1880,9 @@ window.__require = function e(t, n, r) {
       GameObjectPool.PreLoadBundle = function(bundleName) {
         cc.assetManager.loadBundle(bundleName);
       };
-      GameObjectPool.Spawn = function(bundleName, assetName, callback, errorcb) {
+      GameObjectPool.Spawn = function(bundleName, assetName, callback, errorcb, preload) {
         var _this = this;
+        void 0 === preload && (preload = false);
         var key = this.keyMaker(bundleName, assetName);
         var freeNodes = this.freePool.get(key);
         if (freeNodes && freeNodes.length > 0) {
@@ -1901,7 +1904,7 @@ window.__require = function e(t, n, r) {
             }
             var node = cc.instantiate(prefab);
             var k = _this.keyMaker(bundleName, assetName);
-            _this.pushNode(_this.usedPool, k, node);
+            preload ? _this.pushNode(_this.freePool, k, node) : _this.pushNode(_this.usedPool, k, node);
             callback(node);
           });
         });
@@ -1925,6 +1928,16 @@ window.__require = function e(t, n, r) {
         this.root = new cc.Node();
         this.root.active = false;
         parent.addChild(this.root);
+      };
+      GameObjectPool.Preload = function(bundleName, assetName) {
+        var _this = this;
+        return new Promise(function(resolve, reject) {
+          _this.Spawn(bundleName, assetName, function(node) {
+            resolve(node);
+          }, function(e) {
+            reject(e);
+          }, true);
+        });
       };
       GameObjectPool.freePool = new Map();
       GameObjectPool.usedPool = new Map();

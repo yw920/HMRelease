@@ -18,8 +18,8 @@ window._CCSettings = {
     jsList: [],
     bundleVers: {
         internal: "d40d2",
-        Prefab: "470aa",
+        Prefab: "7a8fc",
         Texture: "f8f65",
-        main: "b2176"
+        main: "899d4"
     }
 };
