@@ -1189,8 +1189,6 @@ window.__require = function e(t, n, r) {
             if (item.elipseTime > item.delayTime) {
               set.delete(item);
               null === (_a = item.callback) || void 0 === _a ? void 0 : _a.call(item);
-              true;
-              cc.log("delay excute id:" + item.generateId + " delay:" + item.delayTime);
             }
           } else if (void 0 != item.interval) {
             if (item.elipseTime >= item.interval) {
@@ -1368,7 +1366,7 @@ window.__require = function e(t, n, r) {
         var msg = new Msgs_1.CMisstionComplete();
         msg.missionNum = GameModel_1.default.model.appInfo.missionNum;
         msg.missionScore = GameModel_1.default.model.score;
-        msg.totalScore = (null === (_a = GameModel_1.default.model.sGetPlayerInfo) || void 0 === _a ? void 0 : _a.totalScore) + GameModel_1.default.model.score;
+        msg.totalScore = null === (_a = GameModel_1.default.model.sGetPlayerInfo) || void 0 === _a ? void 0 : _a.totalScore;
         msg.userId = GameModel_1.default.model.appInfo.userId;
         Network_1.Network.RpcSendOnly(msg);
       };
@@ -1379,7 +1377,7 @@ window.__require = function e(t, n, r) {
         msg.gameStatus = GameModel_1.default.model.state == GameModel_1.GameState.HITTING ? Msgs_1.SGameState.ING : Msgs_1.SGameState.ENDING;
         msg.missionNum = GameModel_1.default.model.appInfo.missionNum;
         msg.score = GameModel_1.default.model.score;
-        msg.totalScore = (null === (_a = GameModel_1.default.model.sGetPlayerInfo) || void 0 === _a ? void 0 : _a.totalScore) + GameModel_1.default.model.score;
+        msg.totalScore = null === (_a = GameModel_1.default.model.sGetPlayerInfo) || void 0 === _a ? void 0 : _a.totalScore;
         msg.userId = GameModel_1.default.model.appInfo.userId;
         Network_1.Network.RpcSendOnly(msg);
       };
@@ -3715,7 +3713,6 @@ window.__require = function e(t, n, r) {
           return __generator(this, function(_a) {
             switch (_a.label) {
              case 0:
-              appInfo = GameApp.startGame();
               appInfo || (appInfo = {
                 autoStart: 1,
                 missionNum: 2,
