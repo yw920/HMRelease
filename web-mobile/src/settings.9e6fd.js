@@ -20,6 +20,6 @@ window._CCSettings = {
         internal: "d40d2",
         Prefab: "7a8fc",
         Texture: "f8f65",
-        main: "3abe4"
+        main: "92c74"
     }
 };

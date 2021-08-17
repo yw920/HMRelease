@@ -2027,17 +2027,12 @@ window.__require = function e(t, n, r) {
         cc.audioEngine.stopMusic();
         return;
       }
-      cc.assetManager.loadRemote(info.url, function(error, audio) {
-        if (error) {
-          cc.log(error);
-          return;
-        }
-        cc.audioEngine.playMusic(audio, false);
-        Functions_1.mySetTimeout(function() {
-          var _a;
-          null === (_a = info.callback) || void 0 === _a ? void 0 : _a.call(info);
-        }, 1e3 * audio.duration);
-      });
+      true;
+      Functions_1.mySetTimeout(function() {
+        var _a;
+        null === (_a = info.callback) || void 0 === _a ? void 0 : _a.call(info);
+      }, 1e3);
+      return;
     };
     var bindAnim = function(node, val) {
       var anim = node.parent.parent.getComponent(cc.Animation);
@@ -2628,11 +2623,6 @@ window.__require = function e(t, n, r) {
         key: i.toString(),
         obj: GameModel_1.default.model.mouses
       };
-      stateBinds.push({
-        viewName: viewName + ".paizi.sp",
-        bindFunc: Export_1.ViewBindingsImp.bindWWWImg,
-        state: imgState
-      });
       actionBinds.push({
         viewName: viewName,
         bindFunc: bindMouseClick.bind(this_1, i),
@@ -3726,6 +3716,13 @@ window.__require = function e(t, n, r) {
               true;
               cc.log(appInfo);
               GameModel_1.default.model.appInfo = appInfo;
+              Network_1.Network.WebSocketConect(GameModel_1.default.model.appInfo.userId);
+              Network_1.Network.AddNotify(new Msgs_1.SPushMessage(), function(msg) {
+                GameModel_1.default.mutations.SetNotify(msg);
+              });
+              Network_1.Network.AddNotify(new Msgs_1.SGameOver(), function(msg) {
+                GameAction_1.GameAction.EndGame();
+              });
               sendMsg = new Msgs_1.CGetGameParam();
               sendMsg.userId = GameModel_1.default.model.appInfo.userId;
               return [ 4, Network_1.Network.Rpc(sendMsg) ];
