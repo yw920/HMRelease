@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "05N6WiBoxDYYaCxpi/kDfo"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "dishu05_3",
+      "rect": [
+        0,
+        0,
+        205,
+        198
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        205,
+        198
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

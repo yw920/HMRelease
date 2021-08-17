@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "97+KfvK8tE+4bD/ZfVBcV9"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "jinbi",
+      "rect": [
+        0,
+        0,
+        88,
+        88
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        88,
+        88
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]
