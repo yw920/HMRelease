@@ -1421,7 +1421,8 @@ window.__require = function e(t, n, r) {
                 var nextStage = GameModel_1.default.model.curStage + 1;
                 GameModel_1.default.mutations.SetCurStage(nextStage);
                 var preloads_1 = [];
-                null !== (_b = null === (_a = GameModel_1.default.model.sGetMissionInfo.resourceList[nextStage]) || void 0 === _a ? void 0 : _a.moleList) && void 0 !== _b ? _b : [].forEach(function(mole) {
+                var moleList = null !== (_b = null === (_a = GameModel_1.default.model.sGetMissionInfo.resourceList[nextStage]) || void 0 === _a ? void 0 : _a.moleList) && void 0 !== _b ? _b : [];
+                moleList.forEach(function(mole) {
                   preloads_1.push(mole.imgUrl);
                 });
                 GameObjectPool_1.GameObjectPool.PreloadWWWImg(preloads_1);
