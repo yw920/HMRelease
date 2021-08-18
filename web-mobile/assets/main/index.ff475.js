@@ -1078,6 +1078,7 @@ window.__require = function e(t, n, r) {
       value: true
     });
     exports.CocosViewBindings = void 0;
+    var GameObjectPool_1 = require("./GameObjectPool");
     var CocosViewBindings = function() {
       function CocosViewBindings() {}
       CocosViewBindings.prototype.bindGray = function(node, val) {
@@ -1089,14 +1090,10 @@ window.__require = function e(t, n, r) {
           sp.spriteFrame = null;
           return;
         }
-        cc.assetManager.loadRemote(val, function(error, texture) {
-          if (error) {
-            cc.log(error);
-            return;
-          }
-          var newSp = new cc.SpriteFrame(texture);
-          sp.spriteFrame = newSp;
-        });
+        var texture = GameObjectPool_1.GameObjectPool.GetAssetFromPreload(val);
+        if (!texture) return;
+        var newSp = new cc.SpriteFrame(texture);
+        sp.spriteFrame = newSp;
       };
       CocosViewBindings.prototype.bindText = function(node, val) {
         if (null != val) {
@@ -1150,7 +1147,9 @@ window.__require = function e(t, n, r) {
     }();
     exports.CocosViewBindings = CocosViewBindings;
     cc._RF.pop();
-  }, {} ],
+  }, {
+    "./GameObjectPool": "GameObjectPool"
+  } ],
   Export: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "eec347jn25KS5VqYM3ZKFUM", "Export");
@@ -1264,6 +1263,7 @@ window.__require = function e(t, n, r) {
     var Msgs_1 = require("../Network/Msgs");
     var Network_1 = require("../Network/Network");
     var Functions_1 = require("../Platform/Functions");
+    var GameObjectPool_1 = require("../Platform/GameObjectPool");
     var GameModel_1 = require("./GameModel");
     var GlobalEvent_1 = require("./GlobalEvent");
     var GameAction = function() {
@@ -1411,13 +1411,20 @@ window.__require = function e(t, n, r) {
           if (0 == GameModel_1.default.model.cachedMoleList.length) {
             this.stopLoop();
             this._timmers.push(Functions_1.mySetTimeout(function() {
+              var _a, _b;
               if (GameModel_1.default.model.curStage == GameModel_1.default.model.sGetMissionInfo.resourceList.length - 1) {
                 _this.EndGame();
                 true;
                 cc.log("end game by no more mouse");
               } else {
                 GameModel_1.default.mutations.SetUpNewModelList(GameModel_1.default.model.sGetMissionInfo.resourceList[GameModel_1.default.model.curStage + 1].moleList);
-                GameModel_1.default.mutations.SetCurStage(GameModel_1.default.model.curStage + 1);
+                var nextStage = GameModel_1.default.model.curStage + 1;
+                GameModel_1.default.mutations.SetCurStage(nextStage);
+                var preloads_1 = [];
+                null !== (_b = null === (_a = GameModel_1.default.model.sGetMissionInfo.resourceList[nextStage]) || void 0 === _a ? void 0 : _a.moleList) && void 0 !== _b ? _b : [].forEach(function(mole) {
+                  preloads_1.push(mole.imgUrl);
+                });
+                GameObjectPool_1.GameObjectPool.PreloadWWWImg(preloads_1);
                 _this.saying();
                 true;
                 cc.log("set saying by no more mouse");
@@ -1445,18 +1452,11 @@ window.__require = function e(t, n, r) {
         send.userId = GameModel_1.default.model.appInfo.userId;
         return Network_1.Network.Rpc(send).then(function(msg) {
           GameModel_1.default.mutations.SetMissionInfo(msg);
-          for (var _i = 0, _a = msg.resourceList[0].moleList; _i < _a.length; _i++) {
-            var mole = _a[_i];
-            var url = mole.imgUrl;
-            try {
-              cc.assetManager.loadAny({
-                url: url
-              });
-            } catch (_b) {}
-          }
-          cc.assetManager.loadAny({
-            url: msg.resourceList[0].audioUrl
+          var urls = [];
+          msg.resourceList[0].moleList.forEach(function(mole) {
+            urls.push(mole.imgUrl);
           });
+          GameObjectPool_1.GameObjectPool.PreloadWWWImg(urls);
         });
       };
       GameAction.GetPlayerInfo = function() {
@@ -1482,6 +1482,7 @@ window.__require = function e(t, n, r) {
              case 0:
               GameModel_1.default.model.appInfo.missionNum = (null === (_a = GameModel_1.default.model.appInfo) || void 0 === _a ? void 0 : _a.missionNum) + 1;
               GameModel_1.default.mutations.SetPlayerInfo(GameModel_1.default.model.sGetPlayerInfo);
+              GameObjectPool_1.GameObjectPool.ClearPreLoadWWWImg();
               return [ 4, GameAction.GetMisstionInfo(GameModel_1.default.model.appInfo.missionNum) ];
 
              case 1:
@@ -1549,6 +1550,7 @@ window.__require = function e(t, n, r) {
     "../Network/Msgs": "Msgs",
     "../Network/Network": "Network",
     "../Platform/Functions": "Functions",
+    "../Platform/GameObjectPool": "GameObjectPool",
     "./GameModel": "GameModel",
     "./GlobalEvent": "GlobalEvent"
   } ],
@@ -1937,8 +1939,38 @@ window.__require = function e(t, n, r) {
           }, true);
         });
       };
+      GameObjectPool.PreloadWWWImg = function(urls) {
+        var _this = this;
+        var _loop_1 = function(url) {
+          try {
+            cc.assetManager.loadRemote(url, function(error, texture) {
+              if (error) {
+                cc.log(error);
+                return;
+              }
+              texture.addRef();
+              _this.preloadTextures.set(url, texture);
+            });
+          } catch (_a) {}
+        };
+        for (var _i = 0, urls_1 = urls; _i < urls_1.length; _i++) {
+          var url = urls_1[_i];
+          _loop_1(url);
+        }
+      };
+      GameObjectPool.GetAssetFromPreload = function(key) {
+        return this.preloadTextures.get(key);
+      };
+      GameObjectPool.ClearPreLoadWWWImg = function() {
+        var _this = this;
+        this.preloadTextures.forEach(function(tex, k) {
+          tex.decRef();
+          tex.refCount > 0 && _this.preloadTextures.delete(k);
+        });
+      };
       GameObjectPool.freePool = new Map();
       GameObjectPool.usedPool = new Map();
+      GameObjectPool.preloadTextures = new Map();
       return GameObjectPool;
     }();
     exports.GameObjectPool = GameObjectPool;
@@ -2027,12 +2059,17 @@ window.__require = function e(t, n, r) {
         cc.audioEngine.stopMusic();
         return;
       }
-      true;
-      Functions_1.mySetTimeout(function() {
-        var _a;
-        null === (_a = info.callback) || void 0 === _a ? void 0 : _a.call(info);
-      }, 1e3);
-      return;
+      cc.assetManager.loadRemote(info.url, function(error, audio) {
+        if (error) {
+          cc.log(error);
+          return;
+        }
+        cc.audioEngine.playMusic(audio, false);
+        Functions_1.mySetTimeout(function() {
+          var _a;
+          null === (_a = info.callback) || void 0 === _a ? void 0 : _a.call(info);
+        }, 1e3 * audio.duration);
+      });
     };
     var bindAnim = function(node, val) {
       var anim = node.parent.parent.getComponent(cc.Animation);
@@ -2623,6 +2660,11 @@ window.__require = function e(t, n, r) {
         key: i.toString(),
         obj: GameModel_1.default.model.mouses
       };
+      stateBinds.push({
+        viewName: viewName + ".paizi.sp",
+        bindFunc: Export_1.ViewBindingsImp.bindWWWImg,
+        state: imgState
+      });
       actionBinds.push({
         viewName: viewName,
         bindFunc: bindMouseClick.bind(this_1, i),
